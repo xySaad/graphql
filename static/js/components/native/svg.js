@@ -1,8 +1,19 @@
+import { asyncAppend } from "../../bindjs/native.js";
 import { importSvg } from "../../utils/index.js";
 const svgCache = new Map();
 const parser = new DOMParser();
+const createSvg = (tag, attrs = {}) => {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", tag);
+  for (const key in attrs) {
+    svg.setAttribute(key, attrs[key]);
+  }
+  svg.add = asyncAppend;
+  return svg;
+};
+export const rect = (attrs) => createSvg("rect", attrs);
 
 export const svg = (name) => {
+  if (typeof name === "object") return createSvg("svg", name);
   const svgElem = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   const replaceSvg = (parsedSvg) => {
     const clonedSvg = parsedSvg.cloneNode(true);

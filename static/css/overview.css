@@ -1,0 +1,10 @@
+.ratio {
+  display: flex;
+}
+.ratio > * {
+  margin-left: 10px;
+  font-weight: 500;
+}
+.ratio .low {
+  color: rgb(165, 2, 2);
+}
