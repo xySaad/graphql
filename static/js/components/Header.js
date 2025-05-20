@@ -4,6 +4,7 @@ import { getUserPic } from "../index.js";
 import { go } from "../router.js";
 import { img } from "../bindjs/native.js";
 import { useReference } from "../bindjs/reference.js";
+import { svg } from "./native/svg.js";
 const logout = () => {
   auth.jwt = null;
   go("/login");
@@ -27,10 +28,7 @@ export const Header = async (user) => {
       img(getUserPic(user.login), "icon", { onclick: activeIcon }),
       div("dropDown").add(
         Info(user),
-        div("logout", "Logout", { onclick: logout }).add(
-          div("border-left"),
-          div("border-right")
-        )
+        div("logout", "Logout", { onclick: logout }).add(svg("exit"))
       )
     )
   );
