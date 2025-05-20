@@ -44,7 +44,7 @@ const recentProject_query = `query recentActivities($userId: Int!, $campus: Stri
   audit(
     where: {auditedAt: {_is_null: false}, auditorId: {_eq: $userId}}
     order_by: {auditedAt: desc}
-    limit: 2
+    limit: 4
   ) {
     closureType
     auditedAt
