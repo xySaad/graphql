@@ -7,7 +7,6 @@
   flex-direction: column;
   gap: 10px;
   width: fit-content;
-
   .title {
     width: 100%;
     font-size: large;
@@ -21,4 +20,5 @@
   gap: 10px;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
