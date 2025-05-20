@@ -1,0 +1,41 @@
+.RecentActivity {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-around;
+
+  .projects > * {
+    margin-bottom: 20px;
+    gap: 0 !important;
+  }
+
+  .projects > *,
+  .audit {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    flex: 1;
+    white-space: nowrap;
+
+    .extra {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 10px;
+
+      .members {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+  }
+
+  .attempts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

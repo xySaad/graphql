@@ -1,0 +1,28 @@
+import { div } from "../bindjs/native.js";
+import { Header } from "../components/Header.js";
+import { Overview } from "../components/Overview.js";
+import { RecentActivity } from "../components/RecentActivity.js";
+import { auth } from "../context/auth.js";
+import { graphQuery } from "../models/query.js";
+import { User } from "../models/user.js";
+import { go } from "../router.js";
+class UserId extends User {
+  static query = `query getId {
+  user {
+    id
+  }
+}`;
+}
+
+export const HomePage = async () => {
+  if (!auth.jwt) return go("/login");
+  let [user, error] = await graphQuery(UserId);
+  if (error) return div("HomePage", error);
+  [user, error] = await graphQuery(User, { userId: user.id });
+  if (error) return div("HomePage", error);
+  localStorage.setItem("campus", user.campus);
+  return div().add(
+    Header(user),
+    div("HomePage").add(Overview(user), RecentActivity(user))
+  );
+};
