@@ -4,19 +4,25 @@
   flex-wrap: wrap;
   gap: 10px;
   justify-content: space-around;
-
-  .projects > * {
+  .projects,
+  .audits {
+    flex: 1;
+  }
+  .project {
     margin-bottom: 20px;
     gap: 0 !important;
     flex-wrap: wrap;
   }
 
-  .projects > *,
+  .project,
   .audit {
     display: flex;
     gap: 10px;
-    flex: 1;
     white-space: nowrap;
+    
+    .name {
+      display: flex;
+    }
 
     .extra {
       width: 100%;

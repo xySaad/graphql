@@ -22,8 +22,10 @@ export const Project = (project) => {
   );
 
   return div("project").add(
-    div().add(div("tooltip", project.status), svg(project.status)),
-    div("name", getProjectName(project)),
+    div("name").add(
+      div().add(div("tooltip", project.status), svg(project.status)),
+      getProjectName(project)
+    ),
     div("extra").add(
       div("group").add(
         svg("group"),
