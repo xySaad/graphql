@@ -71,7 +71,6 @@ export class User extends QueryModel {
   }
 
   set skills(data) {
-    // Example: format skill type or sort by amount
     this.#skills = data
       .map((s) => ({
         ...s,
