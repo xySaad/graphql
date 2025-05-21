@@ -2,7 +2,7 @@ import { isReference } from "./reference.js";
 import { importSvg } from "../utils/index.js";
 
 export const asyncAppend = function (...children) {
-  (async () => {
+  this.promise = (async () => {
     const settled = await Promise.allSettled(children);
     const results = settled
       .filter((p) => {

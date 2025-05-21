@@ -14,7 +14,8 @@ export const rect = (attrs) => createSvg("rect", attrs);
 export const svg = (name) => {
   if (typeof name === "object") return createSvg("svg", name);
   const svgElem = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  const replaceSvg = (parsedSvg) => {
+  const replaceSvg = async (parsedSvg) => {
+    await parsedSvg.promise;
     const clonedSvg = parsedSvg.cloneNode(true);
     for (const attr of clonedSvg.getAttributeNames()) {
       svgElem.setAttribute(attr, clonedSvg.getAttribute(attr));
@@ -48,7 +49,7 @@ const fetchAndParseSvg = async (url) => {
     svgCache.set(url, parsedSvg.cloneNode(true));
     return parsedSvg;
   } catch (error) {
-    return await createSvg("svg", { width: 24, height: 24 }).add(
+    return createSvg("svg", { width: 24, height: 24 }).add(
       createSvg("text", {
         x: 10,
         y: 15,
