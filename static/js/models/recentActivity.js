@@ -21,6 +21,10 @@ const recentProject_query = `query recentActivities($userId: Int!, $campus: Stri
     order_by: {updatedAt: desc}
     limit: 1
   ) {
+    object {
+      groupMax: attrs(path: "groupMax")
+      groupMin: attrs(path: "groupMin")
+    }
     captainLogin
     members {
       userLogin
@@ -62,8 +66,10 @@ export class recentProject extends QueryModel {
     path: "/oujda/module/x",
     updatedAt: "2025-05-14T14:25:02.87575+00:00",
   };
-  lastProject = [
+  #lastProject = [
     {
+      groupMax: 2,
+      groupMin: 2,
       captainLogin: "srm",
       members: [
         {
@@ -101,6 +107,17 @@ export class recentProject extends QueryModel {
       },
     },
   ];
+
+  get lastProject() {
+    return this.#lastProject;
+  }
+  set lastProject(v) {
+    this.#lastProject = v.map((p) => ({
+      ...p,
+      groupMin: p.object.groupMin,
+      groupMax: p.object.groupMax,
+    }));
+  }
   set workingOn(v) {
     this.#workingOn = v[0];
   }

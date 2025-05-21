@@ -6,6 +6,9 @@ export const getProjectName = (project) => {
   return parts[parts.length - 1];
 };
 
+/**
+ * @param {import('../models/recentActivity.js').recentProject['lastProject'][number]} project
+ */
 export const Project = (project, className, icon) => {
   const attempts = project.attempts?.length;
 
@@ -13,13 +16,18 @@ export const Project = (project, className, icon) => {
     icon,
     div("name", getProjectName(project)),
     div("extra").add(
-      div("members").add(
+      div("group").add(
         svg("group"),
-        project.members.length,
+        `${project.members.length}${
+          project.groupMax ? `/${project.groupMax}` : ""
+        }`,
         div("tooltip").add(
-          ...project.members.map((m) => {
-            return div("member", m.userLogin);
-          })
+          div("size", project.groupMin ? `required: ${project.groupMin}` : ""),
+          div("members").add(
+            ...project.members.map((m) => {
+              return div("member", m.userLogin);
+            })
+          )
         )
       ),
       attempts

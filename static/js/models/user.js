@@ -62,7 +62,7 @@ export class User extends QueryModel {
       id: 155334,
       amount: 35,
       type: "skill_algo",
-      label: "algo"
+      label: "algo",
     },
   ];
 
@@ -83,7 +83,8 @@ export class User extends QueryModel {
   set cohort(data) {
     const v = data[0].event;
     const joined = v.joined[0];
-    const [label, day, month, year] = joined.name.split("_");
+    const parts = joined.name.split("_");
+    const [day, month, year] = parts.slice(-3);
     const date = new Date(`${month}, ${day}, ${year}`);
 
     this.#cohort.date = date.toDateString();

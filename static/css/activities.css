@@ -25,6 +25,10 @@
       align-items: center;
       gap: 10px;
 
+      .group {
+        display: flex;
+        align-items: center;
+      }
       .members {
         display: flex;
         align-items: center;
