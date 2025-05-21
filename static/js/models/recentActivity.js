@@ -1,26 +1,13 @@
 import { QueryModel } from "./query.js";
 
 const recentProject_query = `query recentActivities($userId: Int!, $campus: String!) {
-  workingOn: group(
-    where: {members: {userId: {_eq: $userId}}, campus: {_eq: $campus}, status: {_in: [working]}, _not: {pathByPath: {path_archives: {status: {_eq: deleted}}}}}
+  lastProjects: group(
+    where: {members: {userId: {_eq: $userId}}, campus: {_eq: $campus}, _not: {pathByPath: {path_archives: {status: {_eq: deleted}}}}}
     order_by: {updatedAt: desc}
-    limit: 1
+    limit: 3
   ) {
     path
-    updatedAt
-    members {
-      userLogin
-      accepted
-    }
-    attempts: auditors(order_by: {createdAt: desc}, distinct_on: createdAt) {
-      createdAt
-    }
-  }
-  lastProject: group(
-    where: {members: {userId: {_eq: $userId}}, campus: {_eq: $campus}, status: {_in: [setup, finished]}, _not: {pathByPath: {path_archives: {status: {_eq: deleted}}}}}
-    order_by: {updatedAt: desc}
-    limit: 1
-  ) {
+    status
     object {
       groupMax: attrs(path: "groupMax")
       groupMin: attrs(path: "groupMin")
@@ -29,10 +16,8 @@ const recentProject_query = `query recentActivities($userId: Int!, $campus: Stri
     members {
       userLogin
     }
-    path
     updatedAt
     eventId
-    status
     attempts: auditors(order_by: {createdAt: desc}, distinct_on: createdAt) {
       createdAt
     }
@@ -62,11 +47,7 @@ const recentProject_query = `query recentActivities($userId: Int!, $campus: Stri
 export class recentProject extends QueryModel {
   static query = recentProject_query;
 
-  #workingOn = {
-    path: "/oujda/module/x",
-    updatedAt: "2025-05-14T14:25:02.87575+00:00",
-  };
-  #lastProject = [
+  #lastProjects = [
     {
       groupMax: 2,
       groupMin: 2,
@@ -108,20 +89,14 @@ export class recentProject extends QueryModel {
     },
   ];
 
-  get lastProject() {
-    return this.#lastProject;
+  get lastProjects() {
+    return this.#lastProjects;
   }
-  set lastProject(v) {
-    this.#lastProject = v.map((p) => ({
+  set lastProjects(v) {
+    this.#lastProjects = v.map((p) => ({
       ...p,
       groupMin: p.object.groupMin,
       groupMax: p.object.groupMax,
     }));
-  }
-  set workingOn(v) {
-    this.#workingOn = v[0];
-  }
-  get workingOn() {
-    return this.#workingOn;
   }
 }

@@ -7,7 +7,7 @@ const createSvg = (tag, attrs = {}) => {
   for (const key in attrs) {
     svg.setAttribute(key, attrs[key]);
   }
-  svg.add = asyncAppend;
+  svg.add = asyncAppend.bind(svg);
   return svg;
 };
 export const rect = (attrs) => createSvg("rect", attrs);
@@ -27,7 +27,7 @@ export const svg = (name) => {
   const cachedSvg = svgCache.get(url);
 
   if (!cachedSvg) {
-    const promise = fetchAndParseSvg(url);
+    const promise = fetchAndParseSvg(url, name);
     promise.then(replaceSvg);
     svgCache.set(url, promise);
   } else if (cachedSvg instanceof Promise) {
@@ -39,10 +39,20 @@ export const svg = (name) => {
   return svgElem;
 };
 const fetchAndParseSvg = async (url) => {
-  const resp = await fetch(url);
-  const text = await resp.text();
-  const svgDoc = parser.parseFromString(text, "image/svg+xml");
-  const parsedSvg = svgDoc.firstChild;
-  svgCache.set(url, parsedSvg);
-  return parsedSvg;
+  try {
+    const resp = await fetch(url);
+
+    const text = await resp.text();
+    const svgDoc = parser.parseFromString(text, "image/svg+xml");
+    const parsedSvg = svgDoc.querySelector("svg");
+    svgCache.set(url, parsedSvg.cloneNode(true));
+    return parsedSvg;
+  } catch (error) {
+    return await createSvg("svg", { width: 24, height: 24 }).add(
+      createSvg("text", {
+        x: 10,
+        y: 15,
+      }).add("X")
+    );
+  }
 };

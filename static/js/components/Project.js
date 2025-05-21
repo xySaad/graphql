@@ -1,3 +1,4 @@
+import { and } from "../bindjs/conditional.js";
 import { div } from "../bindjs/native.js";
 import { svg } from "./native/svg.js";
 
@@ -7,22 +8,28 @@ export const getProjectName = (project) => {
 };
 
 /**
- * @param {import('../models/recentActivity.js').recentProject['lastProject'][number]} project
+ * @param {import('../models/recentActivity.js').recentProject['lastProjects'][number]} project
  */
-export const Project = (project, className, icon) => {
+export const Project = (project) => {
   const attempts = project.attempts?.length;
+  console.log(
+    attempts &&
+      div("attempts").add(
+        svg("close"),
+        attempts - 1,
+        div("tooltip", "past fails")
+      )
+  );
 
-  return div(className).add(
-    icon,
+  return div("project").add(
+    div().add(div("tooltip", project.status), svg(project.status)),
     div("name", getProjectName(project)),
     div("extra").add(
       div("group").add(
         svg("group"),
-        `${project.members.length}${
-          project.groupMax ? `/${project.groupMax}` : ""
-        }`,
+        `${project.members.length}/${project.groupMax}`,
         div("tooltip").add(
-          div("size", project.groupMin ? `required: ${project.groupMin}` : ""),
+          div("size", `required: ${project.groupMin}`),
           div("members").add(
             ...project.members.map((m) => {
               return div("member", m.userLogin);
@@ -30,13 +37,14 @@ export const Project = (project, className, icon) => {
           )
         )
       ),
-      attempts
-        ? div("attempts").add(
-            svg("close"),
-            attempts - 1,
-            div("tooltip", "past fails")
-          )
-        : ""
+      and(
+        attempts,
+        div("attempts").add(
+          svg("close"),
+          attempts - 1,
+          div("tooltip", "past fails")
+        )
+      )
     )
   );
 };
