@@ -14,11 +14,19 @@ export const RecentActivity = async (user) => {
   return div("RecentActivity section").add(
     div("title", "Recent Activities"),
     div("projects", "projects:").add(
-      Project(workingOn, "workingOn", svg("badging")),
+      Project(
+        workingOn,
+        "workingOn",
+        div().add(div("tooltip", "working on"), svg("badging"))
+      ),
       ...lastProject.map((project) =>
-        Project(project, "last", svg("check_circle"))
+        Project(
+          project,
+          "last",
+          div().add(div("tooltip", "submited"), svg("check_circle"))
+        )
       )
     ),
-    div("audits", "audits:").add(...audit.map((a) => Audit(a)))
+    div("audits", "audits you made:").add(...audit.map((a) => Audit(a)))
   );
 };
