@@ -4,7 +4,7 @@ import { getProjectName } from "./Project.js";
 
 export const Audit = (audit) => {
   return div("audit").add(
-    audit.closureType === "failed" ? svg("task_undone") : svg("task_done"),
+    div().add(svg(audit.closureType), div("tooltip", audit.closureType)),
     div("name", getProjectName(audit.group)),
     div("-", "-"),
     div("captain", audit.group.captainLogin)
