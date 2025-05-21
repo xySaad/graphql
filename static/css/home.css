@@ -7,6 +7,8 @@
   flex-direction: column;
   gap: 10px;
   width: fit-content;
+  flex: 1;
+
   .title {
     width: 100%;
     font-size: large;
@@ -16,7 +18,7 @@
 }
 
 .HomePage {
-  padding: 10px;
+  padding: 20px;
   gap: 10px;
   display: flex;
   justify-content: center;

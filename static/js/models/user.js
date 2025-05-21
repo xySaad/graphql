@@ -24,6 +24,15 @@ const User_Query = `query getUserAndEvents($userId: Int!) {
         }
       }
     }
+    skills: transactions(
+      where: {type: {_regex: "skill"}}
+      order_by: [{type: asc}, {amount: desc}]
+      distinct_on: type
+    ) {
+      id
+      amount
+      type
+    }
   }
 }`;
 
@@ -48,6 +57,29 @@ export class User extends QueryModel {
     date: "",
     number: 0,
   };
+  #skills = [
+    {
+      id: 155334,
+      amount: 35,
+      type: "skill_algo",
+      label: "algo"
+    },
+  ];
+
+  get skills() {
+    return this.#skills;
+  }
+
+  set skills(data) {
+    // Example: format skill type or sort by amount
+    this.#skills = data
+      .map((s) => ({
+        ...s,
+        label: s.type.replace("skill_", ""),
+      }))
+      .sort((a, b) => b.amount - a.amount);
+  }
+
   set cohort(data) {
     const v = data[0].event;
     const joined = v.joined[0];

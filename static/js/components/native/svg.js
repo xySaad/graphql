@@ -11,7 +11,6 @@ const createSvg = (tag, attrs = {}) => {
   return svg;
 };
 export const rect = (attrs) => createSvg("rect", attrs);
-
 export const svg = (name) => {
   if (typeof name === "object") return createSvg("svg", name);
   const svgElem = document.createElementNS("http://www.w3.org/2000/svg", "svg");

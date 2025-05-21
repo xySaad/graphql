@@ -8,12 +8,12 @@
   .projects > * {
     margin-bottom: 20px;
     gap: 0 !important;
+    flex-wrap: wrap;
   }
 
   .projects > *,
   .audit {
     display: flex;
-    flex-wrap: wrap;
     gap: 10px;
     flex: 1;
     white-space: nowrap;

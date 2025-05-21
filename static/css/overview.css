@@ -1,10 +1,54 @@
-.ratio {
+.Overview {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 100%;
+
+  .head {
+    width: 100%;
+    text-align: center;
+    .cohort {
+      white-space: nowrap;
+    }
+  }
+}
+
+.ratio,
+.skills {
+  white-space: nowrap;
+  text-align: center;
+  font-weight: 500;
+  width: 100%;
+  flex: 1;
+}
+
+.ratio > * {
+  font-weight: initial;
+  text-align: start;
+}
+
+.graph .head {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 30px;
+}
+
+.balance {
   display: flex;
 }
-.ratio > * {
+
+.balance > * {
   margin-left: 10px;
   font-weight: 500;
 }
-.ratio .low {
+
+.balance .low {
   color: rgb(165, 2, 2);
+}
+
+.skill {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
 }
