@@ -1,10 +1,8 @@
 import { div } from "../bindjs/native.js";
 import { User } from "../models/user.js";
 import { RadarChart } from "./RadarChart.js";
-import { PolarPlot } from "./PolarPlot.js";
 import { StackedSingleBar } from "./StackedSingleBar.js";
 import { useReference } from "../bindjs/reference.js";
-import { When } from "../bindjs/conditional.js";
 
 export const formatBytes = (btyes) => {
   const units = ["B", "KB", "MB", "GB", "TB", "PB"];
@@ -35,16 +33,6 @@ export const Overview = (user) => {
       StackedSingleBar(totalUp, user.totalDown, formatBytes),
       div("balance", "balance:").add(div(ratio < 1 ? "low" : "", ratio))
     ),
-    div("skills").add(
-      div("head", "Skills").add(
-        div("view-switch").add(
-          div("btn", "Radar", { onclick: () => view("radar") }),
-          div("btn", "Polar", { onclick: () => view("polar") })
-        )
-      ),
-      When(view, (view) =>
-        view === "radar" ? RadarChart(user.skills) : PolarPlot(user.skills)
-      )
-    )
+    div("skills").add(div("head", "Skills"), RadarChart(user.skills))
   );
 };
