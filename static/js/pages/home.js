@@ -10,6 +10,7 @@ class UserId extends User {
   static query = `query getId {
   user {
     id
+    campus
   }
 }`;
 }
@@ -18,6 +19,10 @@ export const HomePage = async () => {
   if (!auth.jwt) return go("/login");
   let [user, error] = await graphQuery(UserId);
   if (error) return div("HomePage", error);
+  if (!user.campus)
+    return div("HomePage").add(
+      div("section", "This user is not a student! No data to show")
+    );
   [user, error] = await graphQuery(User, { userId: user.id });
   if (error) return div("HomePage", error);
   localStorage.setItem("campus", user.campus);
