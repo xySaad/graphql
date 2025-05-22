@@ -28,6 +28,10 @@
   flex-wrap: wrap;
   justify-content: center;
   
+  .head {
+    position: relative;
+  }
+
   svg {
     min-width: 250px;
     max-width: 350px;
@@ -64,4 +68,37 @@
   display: flex;
   justify-content: space-between;
   gap: 25px;
+}
+
+.view-switch {
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
+  display: inline-flex;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  overflow: hidden;
+  background: #f0f0f0;
+}
+
+.view-switch .btn {
+  padding: 0.5em 1.2em;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-weight: 500;
+  color: #555;
+  transition: all 0.2s ease;
+}
+
+.view-switch .btn:hover {
+  background: #a3a3a3c9;
+  color: rgb(0, 0, 0);
+}
+
+.view-switch .btn.active {
+  background: #007bff;
+  color: white;
+  font-weight: 600;
 }
