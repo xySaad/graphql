@@ -12,14 +12,27 @@
     }
   }
 }
-
+.ratio {
+  width: 100%;
+}
 .ratio,
 .skills {
   white-space: nowrap;
   text-align: center;
   font-weight: 500;
   width: 100%;
-  flex: 1;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  
+  svg {
+    min-width: 250px;
+    max-width: 350px;
+    flex: 1;
+  }
 }
 
 .ratio > * {

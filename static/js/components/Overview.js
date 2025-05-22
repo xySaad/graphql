@@ -1,5 +1,7 @@
 import { div } from "../bindjs/native.js";
 import { User } from "../models/user.js";
+import { RadarChart } from "./RadarChart.js";
+import { PolarPlot } from "./PolarPlot.js";
 import { StackedSingleBar } from "./StackedSingleBar.js";
 
 export const formatBytes = (btyes) => {
@@ -29,10 +31,10 @@ export const Overview = (user) => {
       StackedSingleBar(totalUp, user.totalDown, formatBytes),
       div("balance", "balance:").add(div(ratio < 1 ? "low" : "", ratio))
     ),
-    div("skills", "Skills").add(
-      ...user.skills.map((s) =>
-        div("skill").add(div("name", s.label), div("amount", s.amount))
-      )
+    div("skills").add(
+      div("head", "Skills"),
+      RadarChart(user.skills),
+      PolarPlot(user.skills)
     )
   );
 };

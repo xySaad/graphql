@@ -71,12 +71,10 @@ export class User extends QueryModel {
   }
 
   set skills(data) {
-    this.#skills = data
-      .map((s) => ({
-        ...s,
-        label: s.type.replace("skill_", ""),
-      }))
-      .sort((a, b) => b.amount - a.amount);
+    this.#skills = data.map((s) => ({
+      ...s,
+      label: s.type.replace("skill_", ""),
+    }));
   }
 
   set cohort(data) {

@@ -11,6 +11,14 @@ const createSvg = (tag, attrs = {}) => {
   return svg;
 };
 export const rect = (attrs) => createSvg("rect", attrs);
+export const circle = (attrs) => createSvg("circle", attrs);
+export const line = (attrs) => createSvg("line", attrs);
+export const polygon = (attrs) => createSvg("polygon", attrs);
+export const title = (text, attrs) => {
+  const elm = createSvg("title", attrs);
+  elm.textContent = text;
+  return elm;
+};
 export const svg = (name) => {
   if (typeof name === "object") return createSvg("svg", name);
   const svgElem = document.createElementNS("http://www.w3.org/2000/svg", "svg");
