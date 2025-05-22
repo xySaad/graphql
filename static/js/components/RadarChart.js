@@ -7,7 +7,13 @@ export const RadarChart = (values) => {
     const degree = (i + 1) * (360 / values.length);
     const radius = (v.amount * 40) / 100;
     const { x: fullX, y: fullY } = degreeToXY(degree, 40);
-    return { ...degreeToXY(degree, radius), label: v.label, fullX, fullY };
+    return {
+      ...degreeToXY(degree, radius),
+      label: v.label,
+      fullX,
+      fullY,
+      amount: v.amount,
+    };
   });
 
   return svg({ viewBox: "0 0 100 100" }).add(
@@ -27,23 +33,30 @@ export const RadarChart = (values) => {
       "stroke-width": 0.5,
       points: points.map(({ x, y }) => `${x},${y}`).join(" "),
     }),
-    ...points.flatMap(({ x, y, label, fullX, fullY }) => [
+    ...points.flatMap(({ x, y, label, fullX, fullY, amount }) => [
       text(label, {
-        class: "point",
+        class: "label",
         x: fullX,
         y: fullY,
         "font-size": 5,
         "text-anchor": "middle",
       }),
-      // circle({ class: "point", cx: x, cy: y, r: 1.2, fill: "none" }),
       line({
-        class: "point",
         x1: x,
         x2: fullX,
         y1: y,
         y2: fullY,
         stroke: "gray",
         "stroke-width": 0.5,
+      }),
+
+      text(amount + "%", {
+        class: "value",
+        x: 50,
+        y: 50,
+        "font-size": 5,
+        "text-anchor": "middle",
+        fill: "none",
       }),
     ])
   );

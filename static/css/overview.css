@@ -102,10 +102,15 @@
   color: white;
   font-weight: 600;
 }
-text.point:has(~ text.point:hover),
-text.point:hover ~ text.point {
+text.label:has(~ text.label:hover),
+text.label:hover ~ text.label {
   fill: gray;
 }
-text.point:hover + line.point {
+
+text.label:hover + line {
   stroke: black;
+}
+
+text.label:hover + line + text.value {
+  fill: black;
 }
