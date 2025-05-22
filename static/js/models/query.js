@@ -40,7 +40,7 @@ export const graphQuery = async (model, variables) => {
     return [null, Error("invalid-jwt")];
   }
   if (!data) return [null, Error("Error fetching", { cause: errors })];
-  data = model.init(data);
+  data = model.init(data);  
   const result = new model();
   error = result.assign(data);
   if (error) return [null, error];

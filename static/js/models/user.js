@@ -1,6 +1,6 @@
 import { QueryModel } from "./query.js";
 
-const User_Query = `query getUserAndEvents($userId: Int!) {
+const User_Query = `query getUserAndEvents($userId: Int!, $campus: String!) {
   user {
     id
     login
@@ -32,6 +32,17 @@ const User_Query = `query getUserAndEvents($userId: Int!) {
       id
       amount
       type
+    }
+    levels: transactions(
+      where: {type: {_eq: "level"}, campus: {_eq: $campus}, userId: {_eq: $userId}}
+      order_by: [{eventId: asc}, {amount: desc}]
+      distinct_on: eventId
+    ) {
+      event {
+        path
+      }
+      eventId
+      amount
     }
   }
 }`;
@@ -65,7 +76,15 @@ export class User extends QueryModel {
       label: "algo",
     },
   ];
-
+  levels = [
+    {
+      event: {
+        path: "/oujda/module",
+      },
+      eventId: 41,
+      amount: 25,
+    },
+  ];
   get skills() {
     return this.#skills;
   }

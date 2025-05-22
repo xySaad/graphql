@@ -2,6 +2,7 @@ import { div } from "../bindjs/native.js";
 import { Header } from "../components/Header.js";
 import { Overview } from "../components/Overview.js";
 import { RecentActivity } from "../components/RecentActivity.js";
+import { RootEvents } from "../components/RootEvents.js";
 import { auth } from "../context/auth.js";
 import { graphQuery } from "../models/query.js";
 import { User } from "../models/user.js";
@@ -23,11 +24,17 @@ export const HomePage = async () => {
     return div("HomePage").add(
       div("section", "This user is not a student! No data to show")
     );
-  [user, error] = await graphQuery(User, { userId: user.id });
+  [user, error] = await graphQuery(User, {
+    userId: user.id,
+    campus: user.campus,
+  });
   if (error) return div("HomePage", error);
   localStorage.setItem("campus", user.campus);
   return div().add(
     Header(user),
-    div("HomePage").add(Overview(user), RecentActivity(user))
+    div("HomePage").add(
+      Overview(user),
+      div("wrap").add(RecentActivity(user), RootEvents(user))
+    )
   );
 };
