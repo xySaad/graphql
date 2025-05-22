@@ -14,6 +14,11 @@ export const rect = (attrs) => createSvg("rect", attrs);
 export const circle = (attrs) => createSvg("circle", attrs);
 export const line = (attrs) => createSvg("line", attrs);
 export const polygon = (attrs) => createSvg("polygon", attrs);
+export const text = (text, attrs) => {
+  const elm = createSvg("text", attrs);
+  elm.textContent = text;
+  return elm;
+};
 export const title = (text, attrs) => {
   const elm = createSvg("title", attrs);
   elm.textContent = text;
