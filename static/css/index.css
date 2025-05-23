@@ -4,6 +4,7 @@
 @import url("./home.css");
 @import url("./activities.css");
 @import url("./overview.css");
+@import url("./rootEvents.css");
 
 body {
   font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",

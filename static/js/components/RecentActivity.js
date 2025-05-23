@@ -2,7 +2,6 @@ import { div } from "../bindjs/native.js";
 import { graphQuery } from "../models/query.js";
 import { recentProject } from "../models/recentActivity.js";
 import { Audit } from "./Audit.js";
-import { svg } from "./native/svg.js";
 import { Project } from "./Project.js";
 
 export const RecentActivity = async (user) => {

@@ -1,8 +1,7 @@
 import { div } from "../bindjs/native.js";
 import { User } from "../models/user.js";
-import { RadarChart } from "./RadarChart.js";
+import { RootEvents } from "./RootEvents.js";
 import { StackedSingleBar } from "./StackedSingleBar.js";
-import { useReference } from "../bindjs/reference.js";
 
 export const formatBytes = (btyes) => {
   const units = ["B", "KB", "MB", "GB", "TB", "PB"];
@@ -22,17 +21,19 @@ export const formatBytes = (btyes) => {
 export const Overview = (user) => {
   const totalUp = user.totalUp + user.totalUpBonus;
   const ratio = user.auditRatio.toFixed(1);
-  const view = useReference("radar");
 
-  return div("Overview section").add(
-    div("head").add(
-      div("title", "Overview"),
-      div("cohort", `cohort ${user.cohort.number} -  ${user.cohort.date}`)
+  return div("Overview").add(
+    div("section").add(
+      div("head").add(
+        div("title", "Overview"),
+        div("cohort", `cohort ${user.cohort.number} -  ${user.cohort.date}`),
+        div("uid", `User ID: ${user.id}`)
+      ),
+      div("ratio", "Audit Ratio").add(
+        StackedSingleBar(totalUp, user.totalDown, formatBytes),
+        div("balance", "balance:").add(div(ratio < 1 ? "low" : "", ratio))
+      )
     ),
-    div("ratio", "Audit Ratio").add(
-      StackedSingleBar(totalUp, user.totalDown, formatBytes),
-      div("balance", "balance:").add(div(ratio < 1 ? "low" : "", ratio))
-    ),
-    div("skills").add(div("head", "Skills"), RadarChart(user.skills))
+    RootEvents(user)
   );
 };

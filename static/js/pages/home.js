@@ -1,8 +1,8 @@
 import { div } from "../bindjs/native.js";
 import { Header } from "../components/Header.js";
 import { Overview } from "../components/Overview.js";
+import { RadarChart } from "../components/RadarChart.js";
 import { RecentActivity } from "../components/RecentActivity.js";
-import { RootEvents } from "../components/RootEvents.js";
 import { auth } from "../context/auth.js";
 import { graphQuery } from "../models/query.js";
 import { User } from "../models/user.js";
@@ -34,7 +34,8 @@ export const HomePage = async () => {
     Header(user),
     div("HomePage").add(
       Overview(user),
-      div("wrap").add(RecentActivity(user), RootEvents(user))
+      div("skills section").add(div("head", "Skills"), RadarChart(user.skills)),
+      RecentActivity(user),
     )
   );
 };
