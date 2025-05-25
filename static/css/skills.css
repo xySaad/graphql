@@ -27,7 +27,7 @@ text.label:hover ~ text.label {
 
 text.label + line {
   stroke-dasharray: 1;
-  stroke-dashoffset: 0;
+  stroke-linecap: round;
 }
 
 text.label:hover + line {
