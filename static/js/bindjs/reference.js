@@ -41,7 +41,7 @@ export const toggle = (a, b) => {
 
   const switchFunc = (first, second) =>
     When(ref, (v) => (a === v ? first : second));
-  return [toggleFunc, switchFunc, [a, b]];
+  return { toggle: toggleFunc, switch: switchFunc, list: [a, b], ref };
 };
 
 export const isReference = (value) => value instanceof Reference;

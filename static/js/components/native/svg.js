@@ -24,14 +24,21 @@ export const title = (text, attrs) => {
   elm.textContent = text;
   return elm;
 };
-export const svg = (name) => {
+export const svg = (name, attr = {}) => {
   if (typeof name === "object") return createSvg("svg", name);
   const svgElem = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   const replaceSvg = async (parsedSvg) => {
     await parsedSvg.promise;
     const clonedSvg = parsedSvg.cloneNode(true);
-    for (const attr of clonedSvg.getAttributeNames()) {
-      svgElem.setAttribute(attr, clonedSvg.getAttribute(attr));
+    for (const key of clonedSvg.getAttributeNames()) {
+      svgElem.setAttribute(key, clonedSvg.getAttribute(key));
+    }
+    for (const [key, value] of Object.entries(attr)) {
+      if (key.startsWith("on") && typeof value === "function") {
+        svgElem[key] = value;
+      } else {
+        svgElem.setAttribute(key, value);
+      }
     }
     svgElem.append(...clonedSvg.children);
   };
