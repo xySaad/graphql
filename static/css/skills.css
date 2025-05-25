@@ -1,0 +1,52 @@
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  .head {
+    position: relative;
+  }
+
+  svg {
+    min-width: 250px;
+    max-width: 350px;
+    flex: 1;
+  }
+}
+
+.skill {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+text.label:has(~ text.label:hover),
+text.label:hover ~ text.label {
+  fill: gray;
+}
+
+text.label + line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+text.label:hover + line {
+  stroke-dasharray: 100;
+  stroke: black;
+}
+
+text.label:hover + line + text.value {
+  fill: black;
+}
+
+.skills polygon {
+  transform-origin: 50% 50%;
+  transform: scale(0);
+  animation: scaleUp 0.6s forwards ease-out;
+}
+
+@keyframes scaleUp {
+  to {
+    transform: scale(1);
+  }
+}

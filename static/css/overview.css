@@ -24,21 +24,6 @@
   width: 100%;
 }
 
-.skills {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-
-  .head {
-    position: relative;
-  }
-
-  svg {
-    min-width: 250px;
-    max-width: 350px;
-    flex: 1;
-  }
-}
 
 .ratio > * {
   font-weight: initial;
@@ -65,21 +50,3 @@
   color: rgb(165, 2, 2);
 }
 
-.skill {
-  display: flex;
-  justify-content: space-between;
-  gap: 25px;
-}
-
-text.label:has(~ text.label:hover),
-text.label:hover ~ text.label {
-  fill: gray;
-}
-
-text.label:hover + line {
-  stroke: black;
-}
-
-text.label:hover + line + text.value {
-  fill: black;
-}
