@@ -18,16 +18,8 @@ const recentProject_query = `query recentActivities($userId: Int!, $campus: Stri
     }
     updatedAt
     eventId
-    attempts: auditors(order_by: {createdAt: desc}, distinct_on: createdAt) {
-      createdAt
-    }
-    audits: auditors(
-      where: {closureType: {_neq: unused}}
-      order_by: {createdAt: desc}
-    ) {
-      createdAt
-      auditorLogin
-      closureType
+    results(order_by: [{ updatedAt: desc }]) {
+      grade
     }
   }
   audit(
@@ -63,17 +55,15 @@ export class recentProject extends QueryModel {
       path: "/oujda/module/typing-in-progress",
       updatedAt: "2025-05-14T13:33:19.671335+00:00",
       eventId: 41,
+      results: [
+        {
+          grade: 0,
+        },
+      ],
       status: "finished",
       attempts: [
         {
           createdAt: "2025-05-14T09:07:44.608327+00:00",
-        },
-      ],
-      audits: [
-        {
-          createdAt: "2025-05-14T09:07:44.608327+00:00",
-          auditorLogin: "izahid",
-          closureType: "succeeded",
         },
       ],
     },

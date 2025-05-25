@@ -12,13 +12,15 @@ export const getProjectName = (project) => {
  * @param {import('../models/recentActivity.js').recentProject['lastProjects'][number]} project
  */
 export const Project = (project) => {
-  const attempts = project.attempts?.length;
+  const results = project.results;
+  const attempts = results?.length;
+  const status =
+    project.status === "finished" && results[0].grade < 1
+      ? "project_failed"
+      : project.status;
 
   return div("project").add(
-    div("name").add(
-      Tooltip(svg(project.status), project.status),
-      getProjectName(project)
-    ),
+    div("name").add(Tooltip(svg(status), status), getProjectName(project)),
     div("extra").add(
       Tooltip(
         div("group").add(
@@ -34,7 +36,7 @@ export const Project = (project) => {
       ),
       and(
         attempts,
-        Tooltip(div("attempts").add(svg("close"), attempts - 1), "past fails")
+        Tooltip(div("attempts").add(svg("refresh"), attempts), "attempts")
       )
     )
   );
