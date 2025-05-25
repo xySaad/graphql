@@ -23,9 +23,9 @@ export const Project = (project) => {
       Tooltip(
         div("group").add(
           svg("group"),
-          `${project.members.length}/${project.groupMax}`
+          `${project.members.length}/${project.groupMax || "?"}`
         ),
-        div("size", `required: ${project.groupMin}`),
+        div("size", and(project.groupMin, `required: ${project.groupMin}`)),
         div("members").add(
           ...project.members.map((m) => {
             return div("member", m.userLogin);
