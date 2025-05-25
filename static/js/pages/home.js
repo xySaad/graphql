@@ -1,8 +1,8 @@
 import { div } from "../bindjs/native.js";
 import { Header } from "../components/Header.js";
 import { Overview } from "../components/Overview.js";
-import { RadarChart } from "../components/RadarChart.js";
 import { RecentActivity } from "../components/RecentActivity.js";
+import { Skills } from "../components/Skills.js";
 import { auth } from "../context/auth.js";
 import { graphQuery } from "../models/query.js";
 import { User } from "../models/user.js";
@@ -32,10 +32,6 @@ export const HomePage = async () => {
   localStorage.setItem("campus", user.campus);
   return div().add(
     Header(user),
-    div("HomePage").add(
-      Overview(user),
-      div("skills section").add(div("head", "Skills"), RadarChart(user.skills)),
-      RecentActivity(user),
-    )
+    div("HomePage").add(Overview(user), Skills(user), RecentActivity(user))
   );
 };
