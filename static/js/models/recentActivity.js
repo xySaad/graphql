@@ -18,7 +18,7 @@ const recentProject_query = `query recentActivities($userId: Int!, $campus: Stri
     }
     updatedAt
     eventId
-    results(order_by: [{ updatedAt: desc }]) {
+    results(order_by: [{updatedAt: desc}]) {
       grade
     }
   }
@@ -32,6 +32,20 @@ const recentProject_query = `query recentActivities($userId: Int!, $campus: Stri
     group {
       path
       captainLogin
+    }
+  }
+  waitingAudits: audit(
+    where: {group: {campus: {_eq: $campus}}, grade: {_is_null: true}, resultId: {_is_null: true}, auditorId: {_eq: $userId}, private: {code: {_is_null: false}}}
+    order_by: {endAt: asc_nulls_last, createdAt: asc}
+  ) {
+    closureType
+    auditedAt
+    group {
+      path
+      captainLogin
+    }
+    private {
+      code
     }
   }
 }`;
@@ -78,7 +92,17 @@ export class recentProject extends QueryModel {
       },
     },
   ];
-
+  waitingAudits = [
+    {
+      group: {
+        path: "/oujda/module/net-cat",
+        captainLogin: "someone",
+      },
+      private: {
+        code: "?ag7h",
+      },
+    },
+  ];
   get lastProjects() {
     return this.#lastProjects;
   }
