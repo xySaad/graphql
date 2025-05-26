@@ -11,6 +11,10 @@
     .cohort {
       white-space: nowrap;
     }
+    .up, .down {
+      display: flex;
+      gap: 10px;
+    }
   }
 }
 .ratio {
