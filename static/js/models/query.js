@@ -16,12 +16,6 @@ export class QueryModel {
     }
   }
 }
-/**
- * @template T
- * @param {new () => T & QueryModel} model - Model class constructor
- * @param {Object} variables - Query variables
- * @returns {Promise<[T|null, Error|null]>} Returns an instance of model or null, and error or null
- */
 export const graphQuery = async (model, variables) => {
   const query = model.query;
   const body = JSON.stringify({ query, variables });
