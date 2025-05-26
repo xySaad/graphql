@@ -18,6 +18,7 @@ export const RadarChart = (values) => {
         fill: "none",
         stroke: "gray",
         "stroke-width": 0.4,
+        style: `animation-delay: ${0.3 + i * 0.1}s`,
       })
     ),
     polygon({
