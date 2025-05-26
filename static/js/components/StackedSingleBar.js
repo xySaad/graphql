@@ -3,9 +3,7 @@ import { rect, svg } from "./native/svg.js";
 
 export const StackedSingleBar = (totalUp, totalDown, formatFunction) => {
   const max = Math.max(totalUp, totalDown);
-  const mid = totalDown / totalUp / 2;
-  const up = ((totalUp * 100) / max) * mid;
-  const down = ((totalDown * 100) / max) * mid;
+  const up = (totalUp * 50) / max;
 
   return div("graph").add(
     div("head").add(
@@ -17,7 +15,7 @@ export const StackedSingleBar = (totalUp, totalDown, formatFunction) => {
       rect({
         x: up,
         y: 0,
-        width: down,
+        width: 100 - up,
         height: 5,
         fill: "red",
       })
